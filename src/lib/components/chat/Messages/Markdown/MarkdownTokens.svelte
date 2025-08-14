@@ -33,6 +33,7 @@
 
 	export let save = false;
 	export let preview = false;
+	export let topPadding = false;
 
 	export let onSave: Function = () => {};
 	export let onUpdate: Function = () => {};
@@ -108,6 +109,7 @@
 				{attributes}
 				{save}
 				{preview}
+				stickyButtonsClassName={topPadding ? 'top-8' : 'top-0'}
 				onSave={(value) => {
 					onSave({
 						raw: token.raw,
