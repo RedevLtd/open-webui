@@ -41,7 +41,7 @@
 
 				if (codeBlockContents) {
 					codeBlockContents.forEach((block) => {
-						const lang = block.split('\n')[0].replace('```', '').trim().toLowerCase();
+            const [lang, ...attrs] = block.split('\n')[0].replace('```', '').trim().toLowerCase().split(/\s+/);
 						const code = block.replace(/```[\s\S]*?\n/, '').replace(/```$/, '');
 						codeBlocks.push({ lang, code });
 					});
