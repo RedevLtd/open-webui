@@ -1,12 +1,11 @@
 <script>
-	import { user } from '$lib/stores';
-	import { processResponseContent, replaceTokens } from '$lib/utils';
 	import { marked } from 'marked';
+	import { replaceTokens, processResponseContent } from '$lib/utils';
+	import { user } from '$lib/stores';
 
-	import markedCodeExtension from '$lib/utils/marked/code-extension';
 	import markedExtension from '$lib/utils/marked/extension';
 	import markedKatexExtension from '$lib/utils/marked/katex-extension';
-	import markedSsmlExtension from '$lib/utils/marked/ssml-extension';
+	import { mentionExtension } from '$lib/utils/marked/mention-extension';
 
 	import MarkdownTokens from './Markdown/MarkdownTokens.svelte';
 
@@ -37,10 +36,11 @@
 		breaks: true
 	};
 
-	marked.use(markedSsmlExtension(options));
 	marked.use(markedKatexExtension(options));
-	marked.use(markedCodeExtension(options));
 	marked.use(markedExtension(options));
+	marked.use({
+		extensions: [mentionExtension({ triggerChar: '@' }), mentionExtension({ triggerChar: '#' })]
+	});
 
 	$: (async () => {
 		if (content) {
